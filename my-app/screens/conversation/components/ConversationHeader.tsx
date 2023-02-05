@@ -1,10 +1,11 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import Constants from "expo-constants";
-import { memo } from "react";
+import { memo, useRef } from "react";
 import { Image, StyleSheet, TouchableHighlight } from "react-native";
 import { Circle } from "../../../components/Circle";
-import { IconButton } from "../../../components/HeaderIcon";
+import IconButton from "../../../components/IconButton";
+import Menu, { MenuRefProps } from "../../../components/Menu";
 import { Row } from "../../../components/Row";
 import { Text } from "../../../components/Themed";
 import Colors from "../../../constants/Colors";
@@ -13,58 +14,62 @@ import useColorScheme from "../../../hooks/useColorScheme";
 function ConversationHeader() {
   const navigation = useNavigation();
   const colorScheme = useColorScheme();
+  const menu = useRef<MenuRefProps>(null);
 
   return (
     <Row style={styles.container}>
       <Row>
-        <Ionicons
-          name="chevron-back"
-          color={Colors[colorScheme].text}
-          onPress={navigation.goBack}
-          size={30}
-        />
+        <IconButton name="arrow-back" onPress={navigation.goBack} size={26} />
         <Circle size={48} style={styles.avatar}>
           <Image />
         </Circle>
       </Row>
-      <Text numberOfLines={1} style={styles.title}>
-        Name is damn long
-      </Text>
+      <Row style={styles.headerTitle}>
+        <Text numberOfLines={1} style={styles.title}>
+          Name is damn long
+        </Text>
+      </Row>
       <Row>
         <IconButton
+          style={styles.icon}
+          size={25}
           onPress={() => navigation.navigate("assistant")}
-          color={Colors[colorScheme].text}
           name="ios-videocam-outline"
         />
-
         <IconButton
+          style={styles.icon}
           onPress={() => navigation.navigate("assistant")}
-          color={Colors[colorScheme].text}
           name="ios-call-outline"
         />
         <IconButton
-          onPress={() => navigation.navigate("assistant")}
-          color={Colors[colorScheme].text}
+          style={styles.icon}
+          onPress={() => menu.current?.open()}
+          size={20}
           name="ellipsis-vertical-outline"
         />
       </Row>
+      <Menu ref={menu} />
     </Row>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: Constants.statusBarHeight + 10,
-    justifyContent: "space-between",
+    paddingBottom: 10,
+    paddingTop: Constants.statusBarHeight,
   },
-  avatar: {
-    alignSelf: "flex-start",
+  avatar: {},
+  headerTitle: {
+    flex: 1,
+    justifyContent: "center",
   },
   title: {
     textTransform: "capitalize",
     fontFamily: "sans-medium",
     fontSize: 16,
-    paddingHorizontal: 10,
+  },
+  icon: {
+    marginLeft: 5,
   },
 });
 

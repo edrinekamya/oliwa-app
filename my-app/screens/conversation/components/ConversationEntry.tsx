@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
   textInput: {
-    borderRadius: 9999,
+    borderRadius: 25,
     padding: 10,
     flex: 1,
     borderWidth: 0.5,

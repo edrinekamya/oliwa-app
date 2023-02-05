@@ -30,7 +30,8 @@ export const sampleMessage: Message = {
 };
 
 export const sampleMessage1: Message = {
-  message: "Hey, how are you",
+  message:
+    "Hey, how are you. It has been a long time with no see, how gave you been",
   messageId: "1",
   messageStatus: MessageStatus.READ,
   messageType: MessageType.TEXT,
@@ -45,7 +46,7 @@ export const sampleMessage2: Message = {
   message: "Check this out",
   messageId: "1",
   messageStatus: MessageStatus.READ,
-  messageType: MessageType.TEXT,
+  messageType: MessageType.DOCUMENT,
   conversationId: "1",
   senderId: "1",
   timestamp: Date(),
@@ -53,19 +54,8 @@ export const sampleMessage2: Message = {
   forwarded: false,
 };
 
-export const sampleMessage3: Message = {
-  message: "TouchableHighlight sampleMessage sampleMessage",
-  messageId: "1",
-  messageStatus: MessageStatus.DELETED,
-  messageType: MessageType.TEXT,
-  conversationId: "1",
-  senderId: "1",
-  timestamp: Date(),
-  isFirst: true,
-  forwarded: false,
-};
-const borderRadius = 20;
-const padding = StyleSheet.hairlineWidth;
+const borderRadius = 16;
+const padding = 1;
 
 function ChatBubble({ isLeft, message }: ChatBubbleProps) {
   const colorScheme = useColorScheme();
@@ -75,6 +65,7 @@ function ChatBubble({ isLeft, message }: ChatBubbleProps) {
   const borderTopEndRadius = !isLeft && message.isFirst ? 0 : borderRadius;
   const borderTopStartRadius = isLeft && message.isFirst ? 0 : borderRadius;
   const alignSelf = isLeft ? "flex-start" : "flex-end";
+  const marginTop = message.isFirst ? 25 : 10;
 
   return (
     <TouchableHighlight
@@ -85,6 +76,7 @@ function ChatBubble({ isLeft, message }: ChatBubbleProps) {
           alignSelf,
           borderTopEndRadius,
           borderTopStartRadius,
+          marginTop,
         },
       ]}
     >
@@ -144,7 +136,6 @@ const styles = StyleSheet.create({
     padding,
     borderRadius,
     maxWidth: "75%",
-    marginTop: 10,
   },
   contentContainer: {
     borderRadius,
