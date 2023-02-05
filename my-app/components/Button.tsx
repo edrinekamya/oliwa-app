@@ -1,9 +1,9 @@
 import { memo } from "react";
-import { Pressable, StyleSheet } from "react-native";
+import { Pressable, StyleSheet, PressableProps, ViewProps } from "react-native";
 import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
   interpolateColor,
+  useAnimatedStyle,
+  useSharedValue,
   withTiming,
 } from "react-native-reanimated";
 import { Text } from "./Themed";
@@ -43,10 +43,14 @@ const styles = StyleSheet.create({
   },
 });
 
-function Button() {
+function Button({
+  title,
+  onPress,
+  style,
+}: Pick<ViewProps, "style"> & { title: string; onPress?: () => void }) {
   const scale = useSharedValue(0);
 
-  const style = useAnimatedStyle(() => {
+  const animatedStyle = useAnimatedStyle(() => {
     const backgroundColor = interpolateColor(
       scale.value,
       INPUTRANGE,
@@ -56,18 +60,23 @@ function Button() {
   });
   return (
     <Pressable
-      onPress={() => {
-        scale.value = 0;
-        scale.value = withTiming(1, { duration: 1000 });
-      }}
-      style={styles.container}
+      onPress={
+        onPress
+          ? () => {
+              onPress();
+              scale.value = 0;
+              scale.value = withTiming(1, { duration: 1000 });
+            }
+          : undefined
+      }
+      style={[style, styles.container]}
     >
-      <Text style={styles.title}>Button</Text>
-      <Animated.View style={[style, styles.rippleContainer]}>
-        <Animated.View style={[style, styles.ripple]}>
-          <Animated.View style={[style, styles.ripple]}>
-            <Animated.View style={[style, styles.ripple]}>
-              <Animated.View style={[style, styles.ripple]} />
+      <Text style={styles.title}>{title}</Text>
+      <Animated.View style={[animatedStyle, styles.rippleContainer]}>
+        <Animated.View style={[animatedStyle, styles.ripple]}>
+          <Animated.View style={[animatedStyle, styles.ripple]}>
+            <Animated.View style={[animatedStyle, styles.ripple]}>
+              <Animated.View style={[animatedStyle, styles.ripple]} />
             </Animated.View>
           </Animated.View>
         </Animated.View>
