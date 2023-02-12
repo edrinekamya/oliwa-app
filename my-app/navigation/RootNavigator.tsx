@@ -45,7 +45,7 @@ export default function RootNavigator() {
 
   return (
     <Stack.Navigator
-      initialRouteName="conversation"
+      initialRouteName="root"
       screenOptions={{
         headerTitleStyle: {
           fontFamily: "sans-medium",

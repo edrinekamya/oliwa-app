@@ -10,7 +10,7 @@ import {
 } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { TouchableHighlight, StyleSheet } from "react-native";
-import { IconButton } from "../components/HeaderIcon";
+import IconButton from "../components/IconButton";
 import { Row } from "../components/Row";
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
@@ -49,6 +49,7 @@ export default function BottomTabNavigator() {
         tabBarActiveTintColor: Colors[colorScheme].tint,
         headerTitleStyle: {
           fontFamily: "sans-heavy",
+          fontSize: 24,
         },
         tabBarLabelStyle: {
           fontFamily: "sans-medium",
@@ -82,12 +83,17 @@ export default function BottomTabNavigator() {
           headerRight: () => (
             <Row style={styles.headerRight}>
               <IconButton
+                style={styles.iconButton}
+                name="ios-notifications-outline"
+                onPress={() => navigation.navigate("notifications")}
+              />
+              <IconButton
                 name="ios-search-outline"
-                color={Colors[colorScheme].text}
+                style={styles.iconButton}
                 onPress={() => navigation.navigate("search")}
               />
               <IconButton
-                color={Colors[colorScheme].text}
+                style={styles.iconButton}
                 name="ios-settings-outline"
                 onPress={() => navigation.navigate("settings")}
               />
@@ -117,12 +123,12 @@ export default function BottomTabNavigator() {
           headerRight: () => (
             <Row style={styles.headerRight}>
               <IconButton
+                style={styles.iconButton}
                 name="ios-search-outline"
-                color={Colors[colorScheme].text}
                 onPress={() => navigation.navigate("search")}
               />
               <IconButton
-                color={Colors[colorScheme].text}
+                style={styles.iconButton}
                 name="ios-settings-outline"
                 onPress={() => navigation.navigate("settings")}
               />
@@ -144,5 +150,9 @@ function TabBarIcon(props: {
 const styles = StyleSheet.create({
   headerRight: {
     backgroundColor: "transparent",
+    paddingHorizontal: 10,
+  },
+  iconButton: {
+    marginLeft: 8,
   },
 });

@@ -12,6 +12,7 @@ export default {
     chatBubbleLeft: "#eee",
     chatBubbleRight: "#E6EDF5",
     searchBar: "#3A3B3C",
+    chip: "#3A3B3C",
   },
   dark: {
     text: "#fff",
@@ -23,5 +24,6 @@ export default {
     chatBubbleLeft: "#192841",
     chatBubbleRight: "#3A3B3C",
     searchBar: "#cecece",
+    chip: "#3A3B3C",
   },
 };
