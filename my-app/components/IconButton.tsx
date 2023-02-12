@@ -18,12 +18,12 @@ export default function IconButton({
   return (
     <TouchableHighlight
       underlayColor={"rgba(255, 255, 255, 0.3)"}
-      style={[style, styles.container]}
+      style={[styles.container, style]}
       {...props}
     >
       <Ionicons
         color={Colors[colorScheme].text}
-        size={size ?? 22}
+        size={size ?? 28}
         name={name}
       />
     </TouchableHighlight>

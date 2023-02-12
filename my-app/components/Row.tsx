@@ -1,7 +1,8 @@
 import { ViewProps } from "react-native";
 import { View } from "../components/Themed";
+import { memo } from "react";
 
-export function Row(props: ViewProps) {
+function Row(props: ViewProps) {
   const { style, ...otherProps } = props;
   return (
     <View
@@ -10,3 +11,5 @@ export function Row(props: ViewProps) {
     />
   );
 }
+
+export default Row;
