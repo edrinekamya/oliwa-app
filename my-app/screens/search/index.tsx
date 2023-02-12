@@ -8,13 +8,12 @@ import Colors from "../../constants/Colors";
 import useColorScheme from "../../hooks/useColorScheme";
 import { RootStackScreenProps } from "../../navigation/RootNavigator";
 import Constants from "expo-constants";
-import { set } from "react-native-reanimated";
 
 export default function SearchScreen({
   navigation,
 }: RootStackScreenProps<"search">) {
   const colorScheme = useColorScheme();
-  const [isFocused, setIsFocused] = useState(true);
+  const [isFocused, setIsFocused] = useState(false);
   const [searchText, setSearchText] = useState("");
   const color = Colors[colorScheme].text;
 
@@ -46,6 +45,11 @@ export default function SearchScreen({
         </Row>
       ) : (
         <Pressable onPressIn={() => setIsFocused(true)}>
+          <IconButton
+            name="ios-chevron-back"
+            onPress={navigation.goBack}
+            style={styles.backButton}
+          />
           <Row style={styles.searchBar}>
             <IconButton name="ios-search-outline" />
             <Text style={styles.placeholder}>Search</Text>
@@ -74,6 +78,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: "#ddd",
+    width: "auto",
   },
   closeCircle: {
     marginHorizontal: 8,
@@ -85,5 +90,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: "#eee",
     paddingBottom: 4,
+  },
+  backButton: {
+    alignSelf: "flex-start",
   },
 });
