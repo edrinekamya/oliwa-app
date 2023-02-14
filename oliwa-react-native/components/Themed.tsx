@@ -36,7 +36,7 @@ export function Text(props: TextProps) {
 
   return (
     <DefaultText
-      style={[{ color, fontFamily: "sans-regular" }, style]}
+      style={[{ color, fontFamily: "sans-regular", fontSize: 16 }, style]}
       {...otherProps}
     />
   );

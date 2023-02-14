@@ -1,4 +1,4 @@
-import { FontAwesome, Ionicons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import {
   BottomTabScreenProps,
   createBottomTabNavigator,
@@ -9,9 +9,9 @@ import {
   NavigationProp,
 } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { TouchableHighlight, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import IconButton from "../components/IconButton";
-import { Row } from "../components/Row";
+import Row from "../components/Row";
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import ChatsScreen from "../screens/chats";
