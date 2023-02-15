@@ -1,36 +1,31 @@
-import { Ionicons } from "@expo/vector-icons";
-import { FlatList, ScrollView, StyleSheet } from "react-native";
-import { Row } from "../../components/Row";
-import { View, Text } from "../../components/Themed";
+import { FlatList, StyleSheet } from "react-native";
+import { View } from "../../components/Themed";
 import { RootStackScreenProps } from "../../navigation/RootNavigator";
-import ChatBubble, {
-  sampleMessage,
-  sampleMessage1,
-  sampleMessage2,
-} from "./components/ChatBubble";
 import ConversationEntry from "./components/ConversationEntry";
 import ConversationHeader from "./components/ConversationHeader";
-import { Message } from "./types";
+import MessageGroupItem from "./components/MessageGroupItem";
+import { MessageGroup, messageGroups } from "./types";
 
 export default function ConversationScreen({
   navigation,
 }: RootStackScreenProps<"conversation">) {
-  const data = Array(50)
-    .fill(0)
-    .map(() =>
-      Math.random() < 0.2
-        ? sampleMessage2
-        : Math.random() > 0.4
-        ? sampleMessage
-        : sampleMessage1
-    );
-  const renderItem = ({ item, index }: { item: Message; index: number }) => (
-    <ChatBubble message={item} isLeft={index % 2 == 0} />
+  const renderItem = ({
+    item,
+    index,
+  }: {
+    item: MessageGroup;
+    index: number;
+  }) => (
+    <MessageGroupItem
+      messageGroup={item}
+      isLeft={index % 2 == 0}
+      isFirstToday={Math.random() < 0.1}
+    />
   );
   return (
     <View style={styles.container}>
       <ConversationHeader />
-      <FlatList data={data} renderItem={renderItem} />
+      <FlatList inverted data={messageGroups} renderItem={renderItem} />
       <ConversationEntry />
     </View>
   );
@@ -40,5 +35,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "space-between",
+    paddingHorizontal: 4,
   },
 });

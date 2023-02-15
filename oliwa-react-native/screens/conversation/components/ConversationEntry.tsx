@@ -1,8 +1,8 @@
-import { Ionicons } from "@expo/vector-icons";
 import React, { memo } from "react";
-import { TextInput, TouchableHighlight, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import IconButton from "../../../components/IconButton";
-import { Row } from "../../../components/Row";
+import Input from "../../../components/Input";
+import Row from "../../../components/Row";
 import Colors from "../../../constants/Colors";
 import useColorScheme from "../../../hooks/useColorScheme";
 
@@ -10,22 +10,19 @@ function ConversationEntry() {
   const colorScheme = useColorScheme();
   return (
     <View style={styles.container}>
-      <Row style={{ justifyContent: "space-around" }}>
-        <IconButton name="ios-camera-outline" />
-        <TextInput
+      <Row>
+        <IconButton style={styles.iconButton} name="ios-camera-outline" />
+        <Input
           multiline
-          placeholderTextColor={"#eee"}
           placeholder="Message"
           style={[
             {
-              color: Colors[colorScheme].text,
-
               backgroundColor: Colors[colorScheme].chatBubbleRight,
             },
             styles.textInput,
           ]}
         />
-        <IconButton name="ios-mic-outline" />
+        <IconButton style={styles.iconButton} name="ios-mic-outline" />
       </Row>
     </View>
   );
@@ -33,17 +30,13 @@ function ConversationEntry() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingBottom: 2,
-    paddingTop: 20,
+    paddingVertical: 4,
   },
   textInput: {
-    borderRadius: 25,
-    padding: 10,
-    flex: 1,
-    borderWidth: 0.5,
-    borderColor: "#cecece",
-    fontFamily: "sans-light",
-    marginHorizontal: 2,
+    borderRadius: 18,
+  },
+  iconButton: {
+    marginHorizontal: 8,
   },
 });
 

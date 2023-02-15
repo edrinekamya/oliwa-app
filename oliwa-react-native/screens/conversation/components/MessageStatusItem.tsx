@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Message, MessageStatus } from "../types";
 
-export function MessageStatusItem({
+export default function MessageStatusItem({
   messageStatus,
 }: Pick<Message, "messageStatus">) {
   return (

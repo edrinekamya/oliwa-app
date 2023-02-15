@@ -1,7 +1,10 @@
 import { StyleSheet, View } from "react-native";
 import { Message } from "../types";
 
-export function VideoMessage({}: Pick<Message, "message" | "forwarded">) {
+export default function VideoMessage({}: Pick<
+  Message,
+  "message" | "forwarded"
+>) {
   return <View style={styles.container}></View>;
 }
 
