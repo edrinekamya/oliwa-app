@@ -1,8 +1,9 @@
 export enum MessageType {
   IMAGE,
   TEXT,
-  DOCUMENT,
+  AUDIO,
   VIDEO,
+  LOCATION
 }
 
 export enum MessageStatus {
@@ -28,17 +29,17 @@ export interface Message {
   forwarded?: boolean;
 }
 
-export const messageGroups: MessageGroup[] = Array(20)
+export const messageGroups: MessageGroup[] = Array(5)
   .fill(0)
   .map((_, i) => ({
     messageGroupId: String(Math.random()),
-    conversationId: "1",
-    senderId: "2",
+    conversationId: '1',
+    senderId: '2',
     messages: Array(Math.ceil(Math.random() * 5))
       .fill(0)
       .map(() => ({
         messageId: String(Math.random()),
-        message: Math.random() > 0.5 ? "Hello, how are you doing" : "Hi",
+        message: Math.random() > 0.5 ? 'Hello, how are you doing' : 'Hi',
         messageStatus: MessageStatus.READ,
         messageType: MessageType.TEXT,
         timestamp: Date(),

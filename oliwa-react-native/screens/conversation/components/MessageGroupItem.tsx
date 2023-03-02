@@ -1,10 +1,10 @@
-import { memo } from "react";
-import { StyleSheet, View } from "react-native";
-import Chip from "../../../components/Chip";
-import Colors from "../../../constants/Colors";
-import useColorScheme from "../../../hooks/useColorScheme";
-import { MessageGroup } from "../types";
-import ChatBubble from "./ChatBubble";
+import { Fragment, memo } from 'react';
+import { StyleSheet, View } from 'react-native';
+import Chip from '../../../components/Chip';
+import Colors from '../../../constants/Colors';
+import useColorScheme from '../../../hooks/useColorScheme';
+import { MessageGroup, MessageStatus } from '../types';
+import ChatBubble from './ChatBubble';
 
 export type MessageGroupItemProps = {
   isLeft?: boolean;
@@ -22,14 +22,16 @@ function MessageGroupItem({
   const backgroundColor = isLeft
     ? Colors[colorScheme].chatBubbleLeft
     : Colors[colorScheme].chatBubbleRight;
-  const alignSelf = isLeft ? "flex-start" : "flex-end";
+  const alignSelf = isLeft ? 'flex-start' : 'flex-end';
   return (
     <View>
       {isFirstToday && (
-        <Chip style={styles.chip} title={messageGroup.messages[0].timestamp} />
+        <Chip
+          style={styles.chip}
+          title={messageGroup.messages[0].timestamp.slice(0, 10)}
+        />
       )}
-      <View style={[styles.container, { alignSelf }]}>
-        {isLeft && <View style={[styles.sideBar]} />}
+      <View style={[styles.container, { alignSelf, alignItems: alignSelf }]}>
         <View>
           {messageGroup.messages.map((message, index) => (
             <ChatBubble
@@ -41,7 +43,6 @@ function MessageGroupItem({
             />
           ))}
         </View>
-        {!isLeft && <View style={styles.sideBar} />}
       </View>
     </View>
   );
@@ -50,15 +51,15 @@ function MessageGroupItem({
 const styles = StyleSheet.create({
   container: {
     marginVertical: 16,
-    maxWidth: "75%",
-    flexDirection: "row",
+    maxWidth: '75%',
+    flexDirection: 'row',
   },
   sideBar: {
     width: 4,
-    backgroundColor: "coral",
+    borderRadius: 25,
   },
   chip: {
-    alignSelf: "center",
+    alignSelf: 'center',
   },
 });
 

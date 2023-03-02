@@ -1,12 +1,12 @@
-import { memo } from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
-import Row from "../../../components/Row";
-import { Text } from "../../../components/Themed";
-import { Message, MessageType } from "../types";
-import DocumentMessage from "./DocumentMessage";
-import ImageMessage from "./ImageMessage";
-import MessageStatusItem from "./MessageStatusItem";
-import VideoMessage from "./VideoMessage";
+import { memo } from 'react';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import Row from '../../../components/Row';
+import { Text } from '../../../components/Themed';
+import { Message, MessageStatus, MessageType } from '../types';
+import DocumentMessage from './DocumentMessage';
+import ImageMessage from './ImageMessage';
+import MessageStatusItem from './MessageStatusItem';
+import VideoMessage from './VideoMessage';
 
 export type ChatBubbleProps = {
   isLeft?: boolean;
@@ -15,67 +15,79 @@ export type ChatBubbleProps = {
   isLast?: boolean;
 };
 
-const borderRadius = 16;
+const borderRadius = 24;
 
 function ChatBubble({
   isLeft,
-  message,
+  message: { message, messageType, messageStatus },
   backgroundColor,
   isLast,
 }: ChatBubbleProps) {
   return (
-    <TouchableOpacity
-      style={[
-        styles.container,
-        {
-          backgroundColor,
-          borderTopEndRadius: isLeft ? borderRadius : 0,
-          borderBottomEndRadius: isLeft ? borderRadius : 0,
-          borderTopStartRadius: isLeft ? 0 : borderRadius,
-          borderBottomStartRadius: isLeft ? 0 : borderRadius,
-          marginBottom: isLast ? 0 : 4,
-          marginLeft: isLeft ? 4 : 0,
-          marginRight: isLeft ? 0 : 4,
-        },
-      ]}
-    >
-      {message.messageType === MessageType.TEXT ? (
-        <Text style={[styles.text]}>{message.message}</Text>
-      ) : message.messageType === MessageType.DOCUMENT ? (
-        <DocumentMessage
-          forwarded={message.forwarded}
-          message={message.message}
+    <View
+      style={{
+        flexDirection: 'row',
+        alignSelf: isLeft ? 'flex-start' : 'flex-end',
+      }}>
+      <TouchableOpacity
+        style={[
+          styles.container,
+          {
+            backgroundColor,
+            borderTopEndRadius: isLeft ? borderRadius : 0,
+            borderBottomEndRadius: isLeft ? borderRadius : 0,
+            marginBottom: isLast ? 0 : 4,
+            marginLeft: isLeft ? 4 : 0,
+            marginRight: isLeft ? 0 : 4,
+          },
+        ]}>
+        {messageType === MessageType.TEXT ? (
+          <Text style={[styles.text]}>{message}</Text>
+        ) : messageType === MessageType.AUDIO ? (
+          <DocumentMessage message={message} />
+        ) : messageType === MessageType.IMAGE ? (
+          <ImageMessage message={message} />
+        ) : (
+          <VideoMessage message={message} />
+        )}
+      </TouchableOpacity>
+      {!isLeft && (
+        <View
+          style={{
+            width: 4,
+            backgroundColor:
+              messageStatus == MessageStatus.READ
+                ? 'blue'
+                : messageStatus == MessageStatus.RECEIVED
+                ? 'green'
+                : 'gray',
+            borderRadius,
+            marginBottom: isLast ? 0 : 4,
+          }}
         />
-      ) : message.messageType === MessageType.IMAGE ? (
-        <ImageMessage forwarded={message.forwarded} message={message.message} />
-      ) : (
-        <VideoMessage forwarded={message.forwarded} message={message.message} />
       )}
-      <Row style={{ backgroundColor, alignSelf: "flex-end" }}>
-        <Text style={[styles.time]}>11:11</Text>
-        {!isLeft && <MessageStatusItem messageStatus={message.messageStatus} />}
-      </Row>
-    </TouchableOpacity>
+    </View>
   );
 }
 
 export const styles = StyleSheet.create({
   container: {
-    padding: 8,
+    padding: 16,
+    borderTopStartRadius: borderRadius,
+    borderBottomStartRadius: borderRadius,
   },
   text: {
-    flexWrap: "wrap",
-    fontSize: 13,
-    paddingRight: 10,
+    flexWrap: 'wrap',
+    fontSize: 16,
   },
   time: {
-    alignSelf: "flex-end",
+    alignSelf: 'flex-end',
     fontSize: 9,
-    color: "#bbb",
+    color: '#bbb',
     marginRight: 2,
   },
   arrow: {
-    backgroundColor: "transparent",
+    backgroundColor: 'transparent',
   },
 });
 
