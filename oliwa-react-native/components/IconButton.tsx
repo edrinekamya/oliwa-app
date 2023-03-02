@@ -1,26 +1,27 @@
-import { Ionicons } from "@expo/vector-icons";
-import React from "react";
-import { TouchableHighlight } from "react-native";
-import Colors from "../constants/Colors";
-import useColorScheme from "../hooks/useColorScheme";
-import Touchable from "./Touchable";
+import { Ionicons } from '@expo/vector-icons';
+import React from 'react';
+import { Pressable, TouchableHighlight } from 'react-native';
+import Colors from '../constants/Colors';
+import useColorScheme from '../hooks/useColorScheme';
 
 export default function IconButton({
   name,
   size,
   ...props
 }: {
-  name: React.ComponentProps<typeof Ionicons>["name"];
-  size?: React.ComponentProps<typeof Ionicons>["size"];
-} & TouchableHighlight["props"]) {
-  const colorScheme = useColorScheme();
+  name: React.ComponentProps<typeof Ionicons>['name'];
+  size?: React.ComponentProps<typeof Ionicons>['size'];
+} & TouchableHighlight['props']) {
   return (
-    <Touchable {...props}>
-      <Ionicons
-        color={Colors[colorScheme].text}
-        size={size ?? 28}
-        name={name}
-      />
-    </Touchable>
+    <Pressable
+      android_ripple={{
+        color: '#1da1f255',
+        borderless: true,
+        radius: size ?? 30,
+        foreground: true,
+      }}
+      {...props}>
+      <Ionicons color='#1da1f2' size={size ?? 30} name={name} />
+    </Pressable>
   );
 }
