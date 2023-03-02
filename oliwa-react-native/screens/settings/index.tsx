@@ -1,10 +1,8 @@
-import { StyleSheet } from "react-native";
-import { View } from "../../components/Themed";
-import { RootStackScreenProps } from "../../navigation/RootNavigator";
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import { View } from '../../components/Themed';
 
-export default function SettingsScreen({
-  navigation,
-}: RootStackScreenProps<"settings">) {
+export default function SettingsScreen() {
   return <View style={styles.container}></View>;
 }
 

@@ -1,17 +1,21 @@
-import React from "react";
-import { StyleSheet } from "react-native";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { RootTabScreenProps } from "../../navigation/BottomTabNavigator";
+import React from 'react';
+import MapView from 'react-native-maps';
+import { StyleSheet, View } from 'react-native';
 
-export default function MapScreen({}: RootTabScreenProps<"map">) {
+export default function MapScreen() {
   return (
-    <GestureHandlerRootView style={styles.container}></GestureHandlerRootView>
+    <View style={styles.container}>
+      <MapView style={styles.map} />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "space-between",
+  },
+  map: {
+    width: '100%',
+    height: '100%',
   },
 });
