@@ -1,24 +1,30 @@
-import { useNavigation } from "@react-navigation/native";
-import { memo } from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
-import { Circle } from "../../../components/Circle";
-import Row from "../../../components/Row";
-import { Text, View } from "../../../components/Themed";
+import { useNavigation } from '@react-navigation/native';
+import { memo } from 'react';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Circle } from '../../../components/Circle';
+import Row from '../../../components/Row';
+import { Text } from '../../../components/Themed';
+import Colors from '../../../constants/Colors';
+import useColorScheme from '../../../hooks/useColorScheme';
 
 function ChatListItem({ userID }: { userID: string }) {
   const strokeWidth = Math.random() > 0.5 ? 2 : 0;
   const navigation = useNavigation();
+  const colorScheme = useColorScheme();
   return (
-    <TouchableOpacity onPress={() => navigation.navigate("conversation")}>
-      <Row style={styles.container}>
+    <TouchableOpacity onPress={() => navigation.navigate('conversation')}>
+      <Row
+        style={[
+          styles.container,
+          { backgroundColor: Colors[colorScheme].header },
+        ]}>
         <Circle strokeWidth={strokeWidth}></Circle>
         <View style={styles.contentContainer}>
           <Row style={styles.topRow}>
-            <Text>Name</Text>
-            <Text style={styles.smallText}>11:15</Text>
-          </Row>
-          <Row style={styles.bottomRow}>
-            <Text style={styles.smallText}>Message</Text>
+            <View>
+              <Text>Name</Text>
+              <Text style={styles.smallText}>Message</Text>
+            </View>
           </Row>
         </View>
       </Row>
@@ -28,8 +34,11 @@ function ChatListItem({ userID }: { userID: string }) {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
-    width: "100%",
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    marginHorizontal: 16,
+    marginVertical: 8,
+    borderRadius: 25,
   },
   contentContainer: {
     paddingLeft: 10,
@@ -37,16 +46,16 @@ const styles = StyleSheet.create({
   },
 
   topRow: {
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
     paddingBottom: 8,
   },
 
   bottomRow: {
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
   },
   smallText: {
-    color: "#aaa",
-    fontFamily: "sans-light",
+    color: '#aaa',
+    fontFamily: 'sans-light',
     fontSize: 14,
   },
 });
