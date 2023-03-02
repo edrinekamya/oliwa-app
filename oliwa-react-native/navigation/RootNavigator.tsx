@@ -1,21 +1,25 @@
 import {
   NavigationProp,
   NavigatorScreenParams,
-} from "@react-navigation/native";
+} from '@react-navigation/native';
 import {
-  createNativeStackNavigator,
   NativeStackScreenProps,
-} from "@react-navigation/native-stack";
-import Colors from "../constants/Colors";
-import useColorScheme from "../hooks/useColorScheme";
-import AssistantScreen from "../screens/assistant";
-import ConversationScreen from "../screens/conversation";
-import MomentsScreen from "../screens/moments";
-import NotificationsScreen from "../screens/notifications";
-import SearchScreen from "../screens/search";
-import SettingsScreen from "../screens/settings";
+  createNativeStackNavigator,
+} from '@react-navigation/native-stack';
+import Colors from '../constants/Colors';
+import useColorScheme from '../hooks/useColorScheme';
+import AssistantScreen from '../screens/assistant';
+import ConversationScreen from '../screens/conversation';
+import MomentsScreen from '../screens/moments';
+import NotificationsScreen from '../screens/notifications';
+import SearchScreen from '../screens/search';
+import SettingsScreen from '../screens/settings';
 
-import BottomTabNavigator, { RootTabParamList } from "./BottomTabNavigator";
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import IconButton from '../components/IconButton';
+import BottomTabNavigator, { RootTabParamList } from './BottomTabNavigator';
+import ContactListScreen from '../screens/ContactListScreen';
 
 declare global {
   namespace ReactNavigation {
@@ -45,32 +49,33 @@ export default function RootNavigator() {
 
   return (
     <Stack.Navigator
-      initialRouteName="root"
-      screenOptions={{
+      initialRouteName='root'
+      screenOptions={({ navigation }) => ({
         headerTitleStyle: {
-          fontFamily: "sans-medium",
+          fontFamily: 'sans-medium',
+          marginLeft: 16,
         },
         headerStyle: {
-          backgroundColor: Colors[colorScheme].background,
+          backgroundColor: Colors[colorScheme].header,
+          borderBottomEndRadius: 25,
+          borderBottomStartRadius: 25,
         },
         headerShadowVisible: false,
-      }}
-    >
-      <Stack.Group
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen name="conversation" component={ConversationScreen} />
-        <Stack.Screen name="moments" component={MomentsScreen} />
-        <Stack.Screen name="root" component={BottomTabNavigator} />
-        <Stack.Screen name="search" component={SearchScreen} />
-      </Stack.Group>
-      <Stack.Group screenOptions={{ presentation: "modal" }}>
-        <Stack.Screen name="assistant" component={AssistantScreen} />
-        <Stack.Screen name="notifications" component={NotificationsScreen} />
-        <Stack.Screen name="settings" component={SettingsScreen} />
-      </Stack.Group>
+        headerShown: false,
+        navigationBarColor: Colors[colorScheme].header,
+      })}>
+      <Stack.Screen name='conversation' component={ConversationScreen} />
+      <Stack.Screen name='moments' component={MomentsScreen} />
+      <Stack.Screen name='root' component={BottomTabNavigator} />
+      <Stack.Screen name='search' component={SearchScreen} />
+      <Stack.Screen name='assistant' component={AssistantScreen} />
+      <Stack.Screen name='notifications' component={NotificationsScreen} />
+      <Stack.Screen name='settings' component={SettingsScreen} />
     </Stack.Navigator>
   );
 }
+const styles = StyleSheet.create({
+  icon: {
+    marginLeft: 20,
+  },
+});

@@ -2,24 +2,39 @@ import {
   DarkTheme,
   DefaultTheme,
   NavigationContainer,
-} from "@react-navigation/native";
-import * as React from "react";
-import { ColorSchemeName } from "react-native";
-
-import LinkingConfiguration from "./LinkingConfiguration";
-import RootNavigator from "./RootNavigator";
+} from '@react-navigation/native';
+import { useRef } from 'react';
+import { ColorSchemeName, StyleSheet } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import ContactListScreen, {
+  ContactListContext,
+  ContactListRef,
+} from '../screens/ContactListScreen';
+import LinkingConfiguration from './LinkingConfiguration';
+import RootNavigator from './RootNavigator';
 
 export default function Navigation({
   colorScheme,
 }: {
   colorScheme: ColorSchemeName;
 }) {
+  const contactListRef = useRef<ContactListRef>(null);
   return (
-    <NavigationContainer
-      linking={LinkingConfiguration}
-      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-    >
-      <RootNavigator />
-    </NavigationContainer>
+    <GestureHandlerRootView style={styles.container}>
+      <ContactListContext.Provider value={contactListRef}>
+        <NavigationContainer
+          linking={LinkingConfiguration}
+          theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+          <RootNavigator />
+          <ContactListScreen ref={contactListRef} />
+        </NavigationContainer>
+      </ContactListContext.Provider>
+    </GestureHandlerRootView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
