@@ -1,40 +1,37 @@
 import {
   NavigationProp,
-  NavigatorScreenParams,
+  NavigatorScreenParams
 } from '@react-navigation/native';
 import {
-  NativeStackScreenProps,
-  createNativeStackNavigator,
+  createNativeStackNavigator, NativeStackScreenProps
 } from '@react-navigation/native-stack';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import AssistantScreen from '../screens/assistant';
-import ConversationScreen from '../screens/conversation';
-import MomentsScreen from '../screens/moments';
-import NotificationsScreen from '../screens/notifications';
-import SearchScreen from '../screens/search';
-import SettingsScreen from '../screens/settings';
-
+import AssistantScreen from '../screens/Root/AssistantScreen';
+import ConversationScreen from '../screens/Root/ConversationScreen';
+import MomentsScreen from '../screens/Root/MomentsScreen';
+import NotificationsScreen from '../screens/Root/NotificationScreen';
+import SearchScreen from '../screens/Root/SearchScreen';
+import SettingsScreen from '../screens/Root/SettingScreen';
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import IconButton from '../components/IconButton';
 import BottomTabNavigator, { RootTabParamList } from './BottomTabNavigator';
-import ContactListScreen from '../screens/ContactListScreen';
 
 declare global {
   namespace ReactNavigation {
     interface RootParamList extends RootStackParamList {}
   }
 }
+const BORDER_RADIUS = 32;
 
 export type RootStackParamList = {
-  root: NavigatorScreenParams<RootTabParamList> | undefined;
-  settings: undefined;
-  assistant: undefined;
-  notifications: undefined;
-  search: undefined;
-  moments: undefined;
-  conversation: undefined;
+  Root: NavigatorScreenParams<RootTabParamList> | undefined;
+  Settings: undefined;
+  Assistant: undefined;
+  Notifications: undefined;
+  Search: undefined;
+  Moments: undefined;
+  Conversation: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
@@ -49,7 +46,7 @@ export default function RootNavigator() {
 
   return (
     <Stack.Navigator
-      initialRouteName='root'
+      initialRouteName='Root'
       screenOptions={({ navigation }) => ({
         headerTitleStyle: {
           fontFamily: 'sans-medium',
@@ -57,25 +54,20 @@ export default function RootNavigator() {
         },
         headerStyle: {
           backgroundColor: Colors[colorScheme].header,
-          borderBottomEndRadius: 25,
-          borderBottomStartRadius: 25,
+          borderBottomEndRadius: BORDER_RADIUS,
+          borderBottomStartRadius: BORDER_RADIUS,
         },
         headerShadowVisible: false,
         headerShown: false,
         navigationBarColor: Colors[colorScheme].header,
       })}>
-      <Stack.Screen name='conversation' component={ConversationScreen} />
-      <Stack.Screen name='moments' component={MomentsScreen} />
-      <Stack.Screen name='root' component={BottomTabNavigator} />
-      <Stack.Screen name='search' component={SearchScreen} />
-      <Stack.Screen name='assistant' component={AssistantScreen} />
-      <Stack.Screen name='notifications' component={NotificationsScreen} />
-      <Stack.Screen name='settings' component={SettingsScreen} />
+      <Stack.Screen name='Conversation' component={ConversationScreen} />
+      <Stack.Screen name='Moments' component={MomentsScreen} />
+      <Stack.Screen name='Root' component={BottomTabNavigator} />
+      <Stack.Screen name='Search' component={SearchScreen} />
+      <Stack.Screen name='Assistant' component={AssistantScreen} />
+      <Stack.Screen name='Notifications' component={NotificationsScreen} />
+      <Stack.Screen name='Settings' component={SettingsScreen} />
     </Stack.Navigator>
   );
 }
-const styles = StyleSheet.create({
-  icon: {
-    marginLeft: 20,
-  },
-});

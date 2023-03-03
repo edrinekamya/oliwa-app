@@ -9,7 +9,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import ContactListScreen, {
   ContactListContext,
   ContactListRef,
-} from '../screens/ContactListScreen';
+} from '../screens/Modals/ContactListScreen';
 import LinkingConfiguration from './LinkingConfiguration';
 import RootNavigator from './RootNavigator';
 

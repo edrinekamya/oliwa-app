@@ -14,15 +14,15 @@ import IconButton from '../components/IconButton';
 import Row from '../components/Row';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import ChatsScreen from '../screens/chats';
-import HomeScreen from '../screens/home';
-import MapScreen from '../screens/map';
+import ChatsScreen from '../screens/Root/Tabs/ChatListScreen';
+import HomeScreen from '../screens/Root/Tabs/HomeScreen';
+import MapScreen from '../screens/Root/Tabs/MapScreen';
 import { RootStackParamList } from './RootNavigator';
 
 export type RootTabParamList = {
-  home: undefined;
-  chats: undefined;
-  map: undefined;
+  Home: undefined;
+  Chats: undefined;
+  Map: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
@@ -46,7 +46,7 @@ export default function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName='home'
+      initialRouteName='Home'
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
         headerTitleStyle: {
@@ -86,9 +86,9 @@ export default function BottomTabNavigator() {
         ),
       }}>
       <BottomTab.Screen
-        name='home'
+        name='Home'
         component={HomeScreen}
-        options={({ navigation }: RootTabScreenProps<'home'>) => ({
+        options={({ navigation }: RootTabScreenProps<'Home'>) => ({
           title: 'Home',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
@@ -101,21 +101,21 @@ export default function BottomTabNavigator() {
               <IconButton
                 style={styles.iconButton}
                 name='ios-notifications-outline'
-                onPress={() => navigation.navigate('notifications')}
+                onPress={() => navigation.navigate('Notifications')}
               />
               <IconButton
                 name='ios-search-outline'
                 style={styles.iconButton}
-                onPress={() => navigation.navigate('search')}
+                onPress={() => navigation.navigate('Search')}
               />
             </Row>
           ),
         })}
       />
       <BottomTab.Screen
-        name='map'
+        name='Map'
         component={MapScreen}
-        options={({ navigation }: RootTabScreenProps<'map'>) => ({
+        options={({ navigation }: RootTabScreenProps<'Map'>) => ({
           title: 'Discover',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
@@ -128,9 +128,9 @@ export default function BottomTabNavigator() {
         })}
       />
       <BottomTab.Screen
-        name='chats'
+        name='Chats'
         component={ChatsScreen}
-        options={({ navigation }: RootTabScreenProps<'chats'>) => ({
+        options={({ navigation }: RootTabScreenProps<'Chats'>) => ({
           title: 'Chats',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
@@ -147,12 +147,12 @@ export default function BottomTabNavigator() {
               <IconButton
                 style={styles.iconButton}
                 name='ios-search-outline'
-                onPress={() => navigation.navigate('search')}
+                onPress={() => navigation.navigate('Search')}
               />
               <IconButton
                 style={styles.iconButton}
                 name='ios-settings-outline'
-                onPress={() => navigation.navigate('settings')}
+                onPress={() => navigation.navigate('Settings')}
               />
             </Row>
           ),
