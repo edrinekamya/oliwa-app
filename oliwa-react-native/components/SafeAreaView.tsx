@@ -12,10 +12,14 @@ export default function SafeAreaView({
   children,
   headerRight,
   headerTitle,
+  header,
+  back,
 }: {
   children?: any;
   headerRight?: ReactNode;
   headerTitle?: string;
+  header?: boolean;
+  back?: boolean;
 }) {
   const { top, bottom, left, right } = useSafeAreaInsets();
   const colorScheme = useColorScheme();
@@ -35,11 +39,13 @@ export default function SafeAreaView({
         style={[
           {
             paddingTop: top + 8,
-            backgroundColor: Colors[colorScheme].header,
+            backgroundColor: header
+              ? Colors[colorScheme].header
+              : 'transparent',
           },
           styles.header,
         ]}>
-        <IconButton onPress={navigation.goBack} name='chevron-back' />
+        {back && <IconButton onPress={navigation.goBack} name='chevron-back' />}
         <Text style={styles.headerTitle}>{headerTitle}</Text>
         {headerRight}
       </Row>
@@ -49,9 +55,9 @@ export default function SafeAreaView({
 }
 
 const styles = StyleSheet.create({
-  container: { justifyContent: 'space-between', flex: 1 },
+  container: { flex: 1 },
   header: {
-    paddingHorizontal: 8,
+    paddingHorizontal: 16,
     justifyContent: 'space-between',
     paddingBottom: 16,
     borderBottomEndRadius: 25,

@@ -17,11 +17,11 @@ export default function IconButton({
       android_ripple={{
         color: '#1da1f255',
         borderless: true,
-        radius: size ?? 30,
+        radius: size ?? 28,
         foreground: true,
       }}
       {...props}>
-      <Ionicons color='#1da1f2' size={size ?? 30} name={name} />
+      <Ionicons color='#1da1f2' size={size ?? 28} name={name} />
     </Pressable>
   );
 }
