@@ -6,6 +6,12 @@ const CountryData = [
     code: '+93',
   },
   {
+    name: 'Aland Islands',
+    flag: '\ud83c\udde6\ud83c\uddfd',
+    latlng: [60.116667, 19.9],
+    code: '+35818',
+  },
+  {
     name: 'Albania',
     flag: '\ud83c\udde6\ud83c\uddf1',
     latlng: [41, 20],
@@ -226,7 +232,7 @@ const CountryData = [
     name: 'Canada',
     flag: '\ud83c\udde8\ud83c\udde6',
     latlng: [60, -95],
-    code: '+1204',
+    code: '+1',
   },
   {
     name: 'Cape Verde',
@@ -234,12 +240,7 @@ const CountryData = [
     latlng: [16, -24],
     code: '+238',
   },
-  {
-    name: 'Caribbean Netherlands',
-    flag: '',
-    latlng: [12.18, -68.25],
-    code: '+599',
-  },
+
   {
     name: 'Cayman Islands',
     flag: '\ud83c\uddf0\ud83c\uddfe',
@@ -319,7 +320,7 @@ const CountryData = [
     code: '+53',
   },
   {
-    name: 'Cura\u00e7ao',
+    name: 'Curacao',
     flag: '\ud83c\udde8\ud83c\uddfc',
     latlng: [12.116667, -68.933333],
     code: '+599',
@@ -364,7 +365,7 @@ const CountryData = [
     name: 'Dominican Republic',
     flag: '\ud83c\udde9\ud83c\uddf4',
     latlng: [19, -70.66666666],
-    code: '+1809',
+    code: '+1',
   },
   {
     name: 'Ecuador',
@@ -676,7 +677,7 @@ const CountryData = [
     name: 'Kazakhstan',
     flag: '\ud83c\uddf0\ud83c\uddff',
     latlng: [48, 68],
-    code: '+76',
+    code: '+7',
   },
   {
     name: 'Kenya',
@@ -1060,7 +1061,7 @@ const CountryData = [
     name: 'Puerto Rico',
     flag: '\ud83c\uddf5\ud83c\uddf7',
     latlng: [18.25, -66.5],
-    code: '+1787',
+    code: '+1',
   },
   {
     name: 'Qatar',
@@ -1075,6 +1076,12 @@ const CountryData = [
     code: '+242',
   },
   {
+    name: 'Reunion',
+    flag: '\ud83c\uddf7\ud83c\uddea',
+    latlng: [-21.15, 55.5],
+    code: '+262',
+  },
+  {
     name: 'Romania',
     flag: '\ud83c\uddf7\ud83c\uddf4',
     latlng: [46, 25],
@@ -1084,7 +1091,7 @@ const CountryData = [
     name: 'Russia',
     flag: '\ud83c\uddf7\ud83c\uddfa',
     latlng: [60, 100],
-    code: '+73',
+    code: '+7',
   },
   {
     name: 'Rwanda',
@@ -1093,13 +1100,7 @@ const CountryData = [
     code: '+250',
   },
   {
-    name: 'R\u00e9union',
-    flag: '\ud83c\uddf7\ud83c\uddea',
-    latlng: [-21.15, 55.5],
-    code: '+262',
-  },
-  {
-    name: 'Saint Barth\u00e9lemy',
+    name: 'Saint Barthelemy',
     flag: '\ud83c\udde7\ud83c\uddf1',
     latlng: [18.5, -63.41666666],
     code: '+590',
@@ -1108,7 +1109,7 @@ const CountryData = [
     name: 'Saint Helena, Ascension and Tristan da Cunha',
     flag: '\ud83c\uddf8\ud83c\udded',
     latlng: [-15.95, -5.72],
-    code: '+290',
+    code: '+2',
   },
   {
     name: 'Saint Kitts and Nevis',
@@ -1151,6 +1152,12 @@ const CountryData = [
     flag: '\ud83c\uddf8\ud83c\uddf2',
     latlng: [43.76666666, 12.41666666],
     code: '+378',
+  },
+  {
+    name: 'Sao Tome and Principe',
+    flag: '\ud83c\uddf8\ud83c\uddf9',
+    latlng: [1, 7],
+    code: '+239',
   },
   {
     name: 'Saudi Arabia',
@@ -1291,12 +1298,6 @@ const CountryData = [
     code: '+963',
   },
   {
-    name: 'S\u00e3o Tom\u00e9 and Pr\u00edncipe',
-    flag: '\ud83c\uddf8\ud83c\uddf9',
-    latlng: [1, 7],
-    code: '+239',
-  },
-  {
     name: 'Taiwan',
     flag: '\ud83c\uddf9\ud83c\uddfc',
     latlng: [23.5, 121],
@@ -1408,7 +1409,7 @@ const CountryData = [
     name: 'United States',
     flag: '\ud83c\uddfa\ud83c\uddf8',
     latlng: [38, -97],
-    code: '+1201',
+    code: '+1',
   },
   {
     name: 'United States Minor Outlying Islands',
@@ -1444,7 +1445,7 @@ const CountryData = [
     name: 'Vatican City',
     flag: '\ud83c\uddfb\ud83c\udde6',
     latlng: [41.9, 12.45],
-    code: '+3906698',
+    code: '+3',
   },
   {
     name: 'Venezuela',
@@ -1468,7 +1469,7 @@ const CountryData = [
     name: 'Western Sahara',
     flag: '\ud83c\uddea\ud83c\udded',
     latlng: [24.5, -13],
-    code: '+2125288',
+    code: '+2',
   },
   {
     name: 'Yemen',
@@ -1488,11 +1489,6 @@ const CountryData = [
     latlng: [-20, 30],
     code: '+263',
   },
-  {
-    name: '\u00c5land Islands',
-    flag: '\ud83c\udde6\ud83c\uddfd',
-    latlng: [60.116667, 19.9],
-    code: '+35818',
-  },
 ];
+
 export default CountryData;

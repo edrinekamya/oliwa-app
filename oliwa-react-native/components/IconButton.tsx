@@ -21,7 +21,11 @@ export default function IconButton({
         foreground: true,
       }}
       {...props}>
-      <Ionicons color='#1da1f2' size={size ?? 28} name={name} />
+      <Ionicons
+        color={props.disabled ? 'gray' : '#1da1f2'}
+        size={size ?? 28}
+        name={name}
+      />
     </Pressable>
   );
 }

@@ -8,6 +8,7 @@ import {
 } from '@react-navigation/native-stack';
 import React from 'react';
 import Colors from '../constants/Colors';
+import useAppSelector from '../hooks/useAppSelector';
 import useColorScheme from '../hooks/useColorScheme';
 import LoginScreen from '../screens/Auth/LoginScreen';
 import SignupScreen from '../screens/Auth/SignupScreen';
@@ -49,39 +50,44 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function RootNavigator() {
   const colorScheme = useColorScheme();
+  const { isSignedUp } = useAppSelector((state) => state.auth.signup);
+  const { isLoggedIn } = useAppSelector((state) => state.auth.login);
 
   return (
     <Stack.Navigator
       initialRouteName='Login'
-      screenOptions={({ navigation }) => ({
-        headerTitleStyle: {
-          fontFamily: 'sans-medium',
-          marginLeft: 16,
-        },
-        headerStyle: {
-          backgroundColor: Colors[colorScheme].header,
-          borderBottomEndRadius: BORDER_RADIUS,
-          borderBottomStartRadius: BORDER_RADIUS,
-        },
+      screenOptions={{
         headerShadowVisible: false,
         headerShown: false,
-        navigationBarColor: Colors[colorScheme].header,
-      })}>
-      <Stack.Group
-        screenOptions={{
-          animation: 'slide_from_right',
-        }}>
-        <Stack.Screen name='Login' component={LoginScreen} />
-        <Stack.Screen name='Verification' component={VerificationScreen} />
-        <Stack.Screen name='Signup' component={SignupScreen} />
-      </Stack.Group>
-      <Stack.Screen name='Conversation' component={ConversationScreen} />
-      <Stack.Screen name='Moments' component={MomentsScreen} />
-      <Stack.Screen name='Root' component={BottomTabNavigator} />
-      <Stack.Screen name='Search' component={SearchScreen} />
-      <Stack.Screen name='Assistant' component={AssistantScreen} />
-      <Stack.Screen name='Notifications' component={NotificationsScreen} />
-      <Stack.Screen name='Settings' component={SettingsScreen} />
+        navigationBarColor: Colors[colorScheme].background,
+      }}>
+      {!isLoggedIn ? (
+        <Stack.Group
+          screenOptions={{
+            animation: 'slide_from_right',
+            navigationBarHidden: true,
+          }}>
+          <Stack.Screen name='Login' component={LoginScreen} />
+          <Stack.Screen name='Verification' component={VerificationScreen} />
+        </Stack.Group>
+      ) : !isSignedUp ? (
+        <Stack.Group>
+          <Stack.Screen name='Signup' component={SignupScreen} />
+        </Stack.Group>
+      ) : (
+        <Stack.Group
+          screenOptions={{
+            navigationBarColor: Colors[colorScheme].header,
+          }}>
+          <Stack.Screen name='Root' component={BottomTabNavigator} />
+          <Stack.Screen name='Conversation' component={ConversationScreen} />
+          <Stack.Screen name='Moments' component={MomentsScreen} />
+          <Stack.Screen name='Search' component={SearchScreen} />
+          <Stack.Screen name='Assistant' component={AssistantScreen} />
+          <Stack.Screen name='Notifications' component={NotificationsScreen} />
+          <Stack.Screen name='Settings' component={SettingsScreen} />
+        </Stack.Group>
+      )}
     </Stack.Navigator>
   );
 }

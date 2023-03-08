@@ -1,5 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
-import { useCallback, useMemo, useState } from 'react';
+import { AsYouType } from 'libphonenumber-js';
+import { useCallback, useEffect, useState } from 'react';
 import { Dimensions, Pressable, StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Animated, {
@@ -7,27 +8,36 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
+import CountryList, { Country } from '../../components/Auth/CountryList';
 import Button from '../../components/Button';
+import ErrorMessage from '../../components/ErrorMessage';
 import Heading from '../../components/Heading';
 import Row from '../../components/Row';
 import SafeAreaView from '../../components/SafeAreaView';
 import TextInput from '../../components/TextInput';
 import { Text, View } from '../../components/Themed';
 import Colors from '../../constants/Colors';
+import { login } from '../../features/authSlice';
+import useAppDispatch from '../../hooks/useAppDispatch';
+import useAppSelector from '../../hooks/useAppSelector';
 import useColorScheme from '../../hooks/useColorScheme';
-import CountryData from '../../utils/CountryData';
-import CountryList, { Country } from '../../components/Auth/CountryList';
 import { RootStackScreenProps } from '../../navigation/RootNavigator';
+import { isPhoneString, isPhoneValid } from '../../utils/validation';
 
-const { height: HEIGHT, width: WIDTH } = Dimensions.get('window');
+const { height: HEIGHT } = Dimensions.get('window');
 
 export default function LoginScreen({
   navigation,
 }: RootStackScreenProps<'Login'>) {
   const translateY = useSharedValue(HEIGHT);
   const colorScheme = useColorScheme();
-  const [country, setCountry] = useState<Country>(CountryData[0]);
-  const [number, setNumber] = useState(country.code);
+  const { isLoading, config } = useAppSelector((state) => state.auth.login);
+  const error = useAppSelector((state) => state.auth.loginError);
+  console.log('error', error);
+  const [country, setCountry] = useState<Country>(config.country);
+  const [phoneNumber, setPhoneNumber] = useState(config.phoneNumber);
+  const isNumberValid = isPhoneValid(phoneNumber);
+  const dispatch = useAppDispatch();
 
   const contactListAnimatedStyle = useAnimatedStyle(() => ({
     transform: [{ translateY: translateY.value }],
@@ -37,15 +47,32 @@ export default function LoginScreen({
     translateY.value = withTiming(translateY.value == 0 ? HEIGHT : 0);
   };
 
+  const onChangeText = (text: string) => {
+    if (isPhoneString(text) && text.length >= country.code.length) {
+      setPhoneNumber(new AsYouType().input(text));
+    }
+  };
+
   const submit = () => {
-    navigation.navigate('Verification');
+    dispatch(
+      login({
+        phoneNumber,
+        country,
+      })
+    );
   };
 
   const onSelect = useCallback((c: Country) => {
     setCountry(c);
-    setNumber(c.code);
+    setPhoneNumber(c.code);
     toggle();
   }, []);
+
+  useEffect(() => {
+    if (error === null) {
+      navigation.navigate('Verification');
+    }
+  }, [error]);
 
   return (
     <SafeAreaView>
@@ -60,11 +87,12 @@ export default function LoginScreen({
           </Pressable>
           <TextInput
             style={styles.input}
-            onChangeText={setNumber}
-            value={number}
+            onChangeText={onChangeText}
+            value={phoneNumber}
             placeholder='+1 XXXXXXXXXX'
           />
         </Row>
+        <ErrorMessage>{error}</ErrorMessage>
         <View style={styles.countryListContainer}>
           <Animated.View
             style={[
@@ -79,7 +107,17 @@ export default function LoginScreen({
             </ScrollView>
           </Animated.View>
         </View>
-        <Button onPress={submit} style={styles.button} title='Continue' />
+        <Button
+          disabled={!isNumberValid}
+          onPress={submit}
+          loading={isLoading}
+          style={styles.button}
+          title='Continue'
+        />
+        <Text style={styles.info}>
+          By clicking "Continue", you agree to our Terms and confirm you're 18
+          years or older.
+        </Text>
       </View>
     </SafeAreaView>
   );

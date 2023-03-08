@@ -26,6 +26,7 @@ export default function ChatsScreen() {
     <View style={styles.container}>
       <Animated.FlatList
         ListHeaderComponent={StatusList}
+        scrollEventThrottle={16}
         data={data}
         onScroll={onScroll}
         contentContainerStyle={[
